@@ -1,0 +1,15 @@
+{
+  "java8": "true",
+  "dateLibrary": "java8",
+  "useBeanValidation": "true",
+  "useTags": "true",
+  "generateApiTests": "false",
+  "generateApiDocumentation": "false",
+  "supportingFiles": "false",
+  "serializableModel": "true",
+  "basePackage": "dev.jgranizo.inditex.definition",
+  "modelPackage": "dev.jgranizo.inditex.definition.model",
+  "apiPackage": "dev.jgranizo.inditex.definition.api",
+  "configPackage": "dev.jgranizo.inditex.definition.config",
+  "sourceFolder": "target/src/generated/java"
+}

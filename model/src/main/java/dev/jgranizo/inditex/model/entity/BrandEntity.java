@@ -1,34 +1,36 @@
-package dev.jgranizo.inditex.model;
+package dev.jgranizo.inditex.model.entity;
 
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "BRANDS")
-public class Brands {
+public class BrandEntity {
 
-    @Getter
-    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true, nullable = false)
     private Long id;
 
-    @Getter
-    @Setter
     @Column(name = "NAME", nullable = false)
     private String name;
 
-    @Getter
-    @Setter
     @Column(name = "CREATION_DATE", nullable = false)
     private Long creationDate;
 
-    @Getter
-    @Setter
     @Column(name = "MODIFICATION_DATE", nullable = false)
     private Long modificationDate;
+
+    public BrandEntity(String name) {
+        this.name = name;
+        this.creationDate = System.currentTimeMillis();
+        this.modificationDate = System.currentTimeMillis();
+    }
 
 }

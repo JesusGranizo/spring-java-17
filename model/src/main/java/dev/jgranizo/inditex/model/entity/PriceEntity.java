@@ -1,66 +1,62 @@
-package dev.jgranizo.inditex.model;
+package dev.jgranizo.inditex.model.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serial;
+import java.io.Serializable;
+
+@Getter
+@NoArgsConstructor
 @Entity
 @Table(name = "PRICES")
-public class Prices {
+public class PriceEntity {
 
-    private static final long serialVersionUID = 1L;
-
-    @Getter
-    @Setter
     @ManyToOne
     @JoinColumn(name = "BRAND_ID", referencedColumnName = "ID")
-    private Brands brandId;
+    private BrandEntity brandId;
 
-    @Getter
-    @Setter
     @Column(name = "START_DATE", nullable = false)
     private Long startDate;
 
-    @Getter
-    @Setter
     @Column(name = "END_DATE", nullable = false)
     private Long endDate;
 
-    @Getter
-    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "PRICE_LIST", unique = true, nullable = false)
-    private Long priceList;
+    @Column(name = "PRICE_ID", unique = true, nullable = false)
+    private Long priceId;
 
-    @Getter
-    @Setter
     @ManyToOne
     @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")
-    private Product productId;
+    private ProductEntity productId;
 
-    @Getter
-    @Setter
     @Column(name = "PRIORITY", nullable = false)
     private Integer priority;
 
-    @Getter
-    @Setter
     @Column(name = "PRICE", nullable = false)
     private Double price;
 
-    @Getter
-    @Setter
     @Column(name = "ISO", nullable = false)
     private String curr;
 
-    @Getter
-    @Setter
     @Column(name = "CREATION_DATE", nullable = false)
     private Long creationDate;
 
-    @Getter
-    @Setter
     @Column(name = "MODIFICATION_DATE", nullable = false)
     private Long modificationDate;
+
+    public PriceEntity(BrandEntity brandId, Long startDate, Long endDate, ProductEntity productId, Integer priority, Double price, String curr) {
+        this.brandId = brandId;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.productId = productId;
+        this.priority = priority;
+        this.price = price;
+        this.curr = curr;
+        this.creationDate = System.currentTimeMillis();
+        this.modificationDate = System.currentTimeMillis();
+    }
 }

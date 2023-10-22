@@ -1,0 +1,8 @@
+**/*Controller.java
+**/application.properties
+**/OpenApiGeneratorApplication.java
+pom.xml
+README.md
+.springBeans
+.openapi-generator/**
+**/*Tests.java

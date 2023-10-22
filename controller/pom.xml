@@ -9,40 +9,43 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>iinditex-launcher</artifactId>
+    <artifactId>inditex-controller</artifactId>
+    <name>INDITEX - controller</name>
     <packaging>jar</packaging>
-    <name>INDITEX - launcher</name>
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-autoconfigure</artifactId>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-log4j2</artifactId>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>6.0.0</version>
+            <scope>provided</scope>
         </dependency>
 
-        <dependency>
-            <groupId>dev.jgranizo.inditex</groupId>
-            <artifactId>inditex-model</artifactId>
-        </dependency>
         <dependency>
             <groupId>dev.jgranizo.inditex</groupId>
             <artifactId>inditex-definition</artifactId>
         </dependency>
         <dependency>
             <groupId>dev.jgranizo.inditex</groupId>
-            <artifactId>inditex-controller</artifactId>
+            <artifactId>inditex-model</artifactId>
         </dependency>
+
     </dependencies>
 
 </project>

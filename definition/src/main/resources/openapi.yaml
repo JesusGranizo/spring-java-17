@@ -1,0 +1,155 @@
+openapi: 3.0.0
+info:
+  description: Inditex API
+  title: Inditex
+  version: 1.0.0
+servers:
+- description: Local server
+  url: http://localhost:8080
+- description: Production server
+  url: https://api.inditex.com
+security:
+- ApiKeyAuth: []
+paths:
+  /v1/prices:
+    post:
+      description: Get price
+      operationId: getPrice
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PriceRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriceResponse'
+          description: Price
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDefinition'
+          description: Bad request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDefinition'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDefinition'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDefinition'
+          description: Not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDefinition'
+          description: Internal server error
+      summary: Get price
+      tags:
+      - price
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: price
+components:
+  schemas:
+    PriceRequest:
+      example:
+        date: 2000-01-23T04:56:07.000+00:00
+        productId: 35455
+        brandId: 1
+      properties:
+        brandId:
+          description: Brand identifier
+          example: 1
+          type: integer
+        productId:
+          description: Product identifier
+          example: 35455
+          type: integer
+        date:
+          description: Date
+          format: date-time
+          type: string
+      required:
+      - brandId
+      - date
+      - productId
+      type: object
+    PriceResponse:
+      example:
+        productId: 35455
+        endDate: 2020-12-31T23:59:59
+        price: 35.5
+        brandId: 1
+        currency: EUR
+        priceId: 1
+        startDate: 2020-06-14T00:00:00
+      properties:
+        brandId:
+          description: Brand identifier
+          example: 1
+          type: integer
+        productId:
+          description: Product identifier
+          example: 35455
+          type: integer
+        startDate:
+          description: Start date
+          example: 2020-06-14T00:00:00
+          type: string
+        endDate:
+          description: End date
+          example: 2020-12-31T23:59:59
+          type: string
+        priceId:
+          description: Price list
+          example: 1
+          type: integer
+        price:
+          description: Price
+          example: 35.5
+          format: double
+          type: number
+        currency:
+          description: Currency
+          example: EUR
+          type: string
+      required:
+      - brandId
+      - currency
+      - price
+      - productId
+      type: object
+    ErrorDefinition:
+      properties:
+        code:
+          description: Error code
+          example: "1"
+          type: string
+        message:
+          description: Error message
+          example: Error message
+          type: string
+      required:
+      - code
+      - message
+      type: object
+  securitySchemes:
+    ApiKeyAuth:
+      in: header
+      name: ApiKey
+      type: apiKey
