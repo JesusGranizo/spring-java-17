@@ -1,6 +1,6 @@
-package dev.jgranizo.inditex.controller;
+package dev.jgranizo.inditex.launcher;
 
-import dev.jgranizo.inditex.controller.error.ErrorType;
+import dev.jgranizo.inditex.launcher.error.ErrorType;
 import dev.jgranizo.inditex.definition.model.ErrorDefinition;
 import org.springframework.beans.ConversionNotSupportedException;
 import org.springframework.beans.TypeMismatchException;
@@ -34,7 +34,10 @@ public class ErrorController extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-        return super.handleHttpRequestMethodNotSupported(ex, headers, status, request);
+        ErrorDefinition error = new ErrorDefinition();
+        error.setCode(ErrorType.METHOD_NOT_ALLOWED.getCode());
+        error.setMessage("Method: " + request.getContextPath() + " is not supported");
+        return new ResponseEntity<>(error, ErrorType.METHOD_NOT_ALLOWED.getHttpStatus());
     }
 
     @Override
@@ -47,32 +50,50 @@ public class ErrorController extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleHttpMediaTypeNotAcceptable(HttpMediaTypeNotAcceptableException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-        return super.handleHttpMediaTypeNotAcceptable(ex, headers, status, request);
+        ErrorDefinition error = new ErrorDefinition();
+        error.setCode(ErrorType.UNSUPPORTED_MEDIA_TYPE.getCode());
+        error.setMessage("Content-Type: " + request.getHeader("Content-Type") + " is not supported");
+        return new ResponseEntity<>(error, ErrorType.UNSUPPORTED_MEDIA_TYPE.getHttpStatus());
     }
 
     @Override
     protected ResponseEntity<Object> handleMissingPathVariable(MissingPathVariableException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-        return super.handleMissingPathVariable(ex, headers, status, request);
+        ErrorDefinition error = new ErrorDefinition();
+        error.setCode(ErrorType.BAD_REQUEST.getCode());
+        error.setMessage("Missing path variable: " + ex.getVariableName());
+        return new ResponseEntity<>(error, ErrorType.BAD_REQUEST.getHttpStatus());
     }
 
     @Override
     protected ResponseEntity<Object> handleMissingServletRequestParameter(MissingServletRequestParameterException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-        return super.handleMissingServletRequestParameter(ex, headers, status, request);
+        ErrorDefinition error = new ErrorDefinition();
+        error.setCode(ErrorType.BAD_REQUEST.getCode());
+        error.setMessage("Missing request parameter: " + ex.getParameterName());
+        return new ResponseEntity<>(error, ErrorType.BAD_REQUEST.getHttpStatus());
     }
 
     @Override
     protected ResponseEntity<Object> handleMissingServletRequestPart(MissingServletRequestPartException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-        return super.handleMissingServletRequestPart(ex, headers, status, request);
+        ErrorDefinition error = new ErrorDefinition();
+        error.setCode(ErrorType.BAD_REQUEST.getCode());
+        error.setMessage("Missing request part: " + ex.getRequestPartName());
+        return new ResponseEntity<>(error, ErrorType.BAD_REQUEST.getHttpStatus());
     }
 
     @Override
     protected ResponseEntity<Object> handleServletRequestBindingException(ServletRequestBindingException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-        return super.handleServletRequestBindingException(ex, headers, status, request);
+        ErrorDefinition error = new ErrorDefinition();
+        error.setCode(ErrorType.BAD_REQUEST.getCode());
+        error.setMessage("Request binding exception: " + ex.getLocalizedMessage());
+        return new ResponseEntity<>(error, ErrorType.BAD_REQUEST.getHttpStatus());
     }
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-        return super.handleMethodArgumentNotValid(ex, headers, status, request);
+        ErrorDefinition error = new ErrorDefinition();
+        error.setCode(ErrorType.BAD_REQUEST.getCode());
+        error.setMessage("Method argument not valid: " + ex.getLocalizedMessage());
+        return new ResponseEntity<>(error, ErrorType.BAD_REQUEST.getHttpStatus());
     }
 
     @Override
@@ -86,27 +107,38 @@ public class ErrorController extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleAsyncRequestTimeoutException(AsyncRequestTimeoutException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-        return super.handleAsyncRequestTimeoutException(ex, headers, status, request);
+        ErrorDefinition error = new ErrorDefinition();
+        error.setCode(ErrorType.INTERNAL_SERVER_ERROR.getCode());
+        error.setMessage("Async request timeout exception: " + ex.getLocalizedMessage());
+        return new ResponseEntity<>(error, ErrorType.INTERNAL_SERVER_ERROR.getHttpStatus());
     }
 
     @Override
     protected ResponseEntity<Object> handleErrorResponseException(ErrorResponseException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-        return super.handleErrorResponseException(ex, headers, status, request);
+        ErrorDefinition error = new ErrorDefinition();
+        error.setCode(ErrorType.INTERNAL_SERVER_ERROR.getCode());
+        error.setMessage("Error response exception: " + ex.getLocalizedMessage());
+        return new ResponseEntity<>(error, ErrorType.INTERNAL_SERVER_ERROR.getHttpStatus());
     }
 
     @Override
     protected ResponseEntity<Object> handleConversionNotSupported(ConversionNotSupportedException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-        return super.handleConversionNotSupported(ex, headers, status, request);
+        ErrorDefinition error = new ErrorDefinition();
+        error.setCode(ErrorType.INTERNAL_SERVER_ERROR.getCode());
+        error.setMessage("Conversion not supported: " + ex.getLocalizedMessage());
+        return new ResponseEntity<>(error, ErrorType.INTERNAL_SERVER_ERROR.getHttpStatus());
     }
 
     @Override
     protected ResponseEntity<Object> handleTypeMismatch(TypeMismatchException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-        return super.handleTypeMismatch(ex, headers, status, request);
+        ErrorDefinition error = new ErrorDefinition();
+        error.setCode(ErrorType.BAD_REQUEST.getCode());
+        error.setMessage("Type mismatch: " + ex.getLocalizedMessage());
+        return new ResponseEntity<>(error, ErrorType.BAD_REQUEST.getHttpStatus());
     }
 
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-
         ErrorDefinition error = new ErrorDefinition();
         error.setCode(ErrorType.BAD_REQUEST.getCode());
         error.setMessage(ex.getLocalizedMessage());
@@ -115,7 +147,10 @@ public class ErrorController extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotWritable(HttpMessageNotWritableException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-        return super.handleHttpMessageNotWritable(ex, headers, status, request);
+        ErrorDefinition error = new ErrorDefinition();
+        error.setCode(ErrorType.INTERNAL_SERVER_ERROR.getCode());
+        error.setMessage("Http message not writable: " + ex.getLocalizedMessage());
+        return new ResponseEntity<>(error, ErrorType.INTERNAL_SERVER_ERROR.getHttpStatus());
     }
 
     @Override
@@ -125,6 +160,9 @@ public class ErrorController extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers, HttpStatusCode statusCode, WebRequest request) {
-        return super.handleExceptionInternal(ex, body, headers, statusCode, request);
+        ErrorDefinition error = new ErrorDefinition();
+        error.setCode(ErrorType.INTERNAL_SERVER_ERROR.getCode());
+        error.setMessage("Internal server error: " + ex.getLocalizedMessage());
+        return new ResponseEntity<>(error, ErrorType.INTERNAL_SERVER_ERROR.getHttpStatus());
     }
 }

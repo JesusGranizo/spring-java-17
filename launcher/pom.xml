@@ -9,9 +9,28 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>iinditex-launcher</artifactId>
+    <artifactId>inditex-launcher</artifactId>
     <packaging>jar</packaging>
     <name>INDITEX - launcher</name>
+
+    <build>
+            <plugins>
+                <plugin>
+                    <!-- Build an executable JAR -->
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>3.3.0</version>
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <addClasspath>true</addClasspath>
+                                <mainClass>dev.jgranizo.inditex.launcher.InditexApplication</mainClass>
+                            </manifest>
+                        </archive>
+                    </configuration>
+                </plugin>
+            </plugins>
+    </build>
 
     <dependencies>
         <dependency>
@@ -29,6 +48,14 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-log4j2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
         </dependency>
 
         <dependency>

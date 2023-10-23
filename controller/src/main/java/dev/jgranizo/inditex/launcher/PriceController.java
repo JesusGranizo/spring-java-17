@@ -1,6 +1,6 @@
-package dev.jgranizo.inditex.controller;
+package dev.jgranizo.inditex.launcher;
 
-import dev.jgranizo.inditex.controller.error.ErrorType;
+import dev.jgranizo.inditex.launcher.error.ErrorType;
 import dev.jgranizo.inditex.definition.api.PriceApi;
 import dev.jgranizo.inditex.definition.model.ErrorDefinition;
 import dev.jgranizo.inditex.definition.model.PriceRequest;
@@ -21,7 +21,6 @@ import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 
 @RestController

@@ -11,9 +11,9 @@
     <name>INDITEX</name>
     <modules>
         <module>model</module>
-        <module>launcher</module>
-        <module>controller</module>
         <module>definition</module>
+        <module>controller</module>
+        <module>launcher</module>
     </modules>
 
     <properties>
@@ -122,21 +122,27 @@
                 <version>4.13.2</version>
                 <scope>test</scope>
             </dependency>
+            <dependency>
+                <groupId>jakarta.servlet</groupId>
+                <artifactId>jakarta.servlet-api</artifactId>
+                <version>6.0.0</version>
+                <scope>provided</scope>
+            </dependency>
 
             <dependency>
                 <groupId>dev.jgranizo.inditex</groupId>
                 <artifactId>inditex-model</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>dev.jgranizo.inditex</groupId>
                 <artifactId>inditex-definition</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>dev.jgranizo.inditex</groupId>
                 <artifactId>inditex-controller</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
